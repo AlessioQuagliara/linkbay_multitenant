@@ -5,7 +5,7 @@ Sistema leggero di multi-tenancy per FastAPI.
 ## Installazione
 
 ```bash
-pip install linkbay-multitenant
+pip install git+https://github.com/AlessioQuagliara/linkbay-multitenant.git
 ```
 
 ## Quick Start
