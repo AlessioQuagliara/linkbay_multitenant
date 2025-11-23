@@ -62,3 +62,6 @@ site/
 *.log
 .env
 .env.local
+
+# Bash
+gitpush.sh
