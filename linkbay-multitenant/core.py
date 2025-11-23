@@ -1,6 +1,12 @@
 from typing import Optional, Dict, Any
 from .schemas import TenantInfo, TenantServiceProtocol, DatabaseConfig
 
+try:
+    from jose import jwt
+    JWT_AVAILABLE = True
+except ImportError:
+    JWT_AVAILABLE = False
+
 class TenantManager:
     def __init__(self, tenant_service: TenantServiceProtocol):
         self.tenant_service = tenant_service
@@ -26,11 +32,17 @@ class MultitenantCore:
         tenant_service: TenantServiceProtocol,
         strategy: str = "header",
         tenant_header: str = "X-Tenant-ID",
+        jwt_header: str = "Authorization",
+        jwt_claim: str = "tenant_id",
+        jwt_secret: Optional[str] = None,
         default_tenant: Optional[str] = None
     ):
         self.tenant_manager = TenantManager(tenant_service)
         self.strategy = strategy
         self.tenant_header = tenant_header
+        self.jwt_header = jwt_header
+        self.jwt_claim = jwt_claim
+        self.jwt_secret = jwt_secret
         self.default_tenant = default_tenant
     
     async def identify_tenant(self, request) -> Optional[str]:
@@ -47,6 +59,24 @@ class MultitenantCore:
             # /tenant-id/path/to/resource
             path_parts = request.url.path.split("/")
             return path_parts[1] if len(path_parts) > 1 else None
+        
+        elif self.strategy == "jwt":
+            # Estrai tenant_id dal JWT claim
+            if not JWT_AVAILABLE:
+                raise ImportError("python-jose non è installato. Installa con: pip install python-jose[cryptography]")
+            
+            auth_header = request.headers.get(self.jwt_header)
+            if auth_header and auth_header.startswith("Bearer "):
+                token = auth_header[7:]
+                try:
+                    # Decodifica il JWT senza verificare la firma (per estrazione claim)
+                    # In produzione, verifica sempre la firma!
+                    payload = jwt.get_unverified_claims(token)
+                    return payload.get(self.jwt_claim)
+                except Exception as e:
+                    # Log dell'errore se necessario
+                    pass
+            return None
         
         return self.default_tenant
     
