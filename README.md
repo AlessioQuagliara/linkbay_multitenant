@@ -1,4 +1,4 @@
-# LinkBay-Multitenant v1.0.0-beta
+# LinkBay-Multitenant v0.1.0
 
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 [![Python](https://img.shields.io/badge/python-3.8+-blue)]()
@@ -6,7 +6,7 @@
 
 **Sistema multitenant enterprise-ready per FastAPI - Isolamento dati, sicurezza e scalabilità**
 
-## 🚀 Caratteristiche
+## Caratteristiche
 
 ### Core Features
 - **Multiple strategie** - Header, Subdomain, Path, JWT
@@ -17,14 +17,14 @@
 - **Completamente async** - Performante e scalabile
 - **Zero dipendenze DB** - Implementi tu i modelli
 
-### 🏢 Enterprise Features (NEW!)
-- **🔌 DB Connection Pool** - Pool dedicati per ogni tenant con auto-scaling
-- **🔒 Query Security** - Interceptor che previene data leak cross-tenant
-- **🧵 Async Context** - Tenant context preserved in background tasks
-- **⚙️ Admin API** - Gestione dinamica tenant (create, delete, update)
-- **⚡ Smart Caching** - LRU cache con TTL per ridurre carico DB
-- **📊 Metrics & Monitoring** - Metriche real-time per ogni tenant
-- **🔄 Data Migration** - Export, import, e migrazione tra tenant
+###  Enterprise Features (NEW!)
+- **DB Connection Pool** - Pool dedicati per ogni tenant con auto-scaling
+- **Query Security** - Interceptor che previene data leak cross-tenant
+- **Async Context** - Tenant context preserved in background tasks
+- **Admin API** - Gestione dinamica tenant (create, delete, update)
+- **Smart Caching** - LRU cache con TTL per ridurre carico DB
+- **Metrics & Monitoring** - Metriche real-time per ogni tenant
+- **Data Migration** - Export, import, e migrazione tra tenant
 
 ## Installazione
 
