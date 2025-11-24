@@ -27,7 +27,10 @@
 - **Data Migration** - Export, import, e migrazione tra tenant
 
 ## Installazione
-
+```bash
+pip install linkbay-multitenant==0.2.0
+```
+oppure
 ```bash
 pip install git+https://github.com/AlessioQuagliara/linkbay_multitenant.git
 ```
